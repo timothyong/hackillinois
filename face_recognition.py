@@ -1,6 +1,6 @@
 import cv2
 import sys
-import matplotlib.pyplot as pt
+#import matplotlib.pyplot as pt
 import numpy as np
 import numpy.linalg as la
 import math as mt
@@ -28,14 +28,22 @@ ournorms = {'Abhishek':[5866.278,6229.924,6123.536,5988.862,5966.183,5990.367,56
 
 indbuffervals = {'Abhishek':100,
 				 'Akshay':100,
+<<<<<<< HEAD:face_recognition.py
 				 'Chris':50,
+=======
+				 'Chris':200,
+>>>>>>> origin/master:facial_recognition.py
 				 'Tim':150}
 #hardcode values into ournorms above
 
 imagePath = sys.argv[1]
 
 
+<<<<<<< HEAD:face_recognition.py
 def recognizeFace(image,faces):
+=======
+def recognizeFace(faces, image):
+>>>>>>> origin/master:facial_recognition.py
 	retval = True
 	if(len(faces)>10):
 		print("Fuck it too many faces shoot everyone")
@@ -77,8 +85,8 @@ def check(image):
 	faceCascade = cv2.CascadeClassifier(cascPath)
 
 	# Read the image
-	image = cv2.imread(imagePath)
-	imnonmod = cv2.imread(imagePath)
+	#image = cv2.imread(imagePath)
+	imnonmod = image
 	gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
 	# Detect faces in the image
@@ -94,20 +102,36 @@ def check(image):
 	# Draw a rectangle around the faces
 	for (x, y, w, h) in faces:
 		cv2.rectangle(image, (x, y), (x+w, y+h), (0, 255, 0), 2)
+<<<<<<< HEAD:face_recognition.py
 
 	what = True
 
 	if(len(faces)>0):
 		what, number = recognizeFace(image,faces)
 
+=======
+
+	what = True
+	if(len(faces)>0):
+		what, number = recognizeFace(faces, image)
+>>>>>>> origin/master:facial_recognition.py
 	# return what to the arduino
 	if(what is False):
 		print("intruder detected")
+		
 
 
 	cv2.imshow("Faces found", image)
+<<<<<<< HEAD:face_recognition.py
 	cv2.waitKey(0)
+=======
+	#cv2.waitKey(0)
+	return what
+
+>>>>>>> origin/master:facial_recognition.py
 
 
 check(imagePath)
 
+if __name__ == '__main__':
+	check()

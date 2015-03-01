@@ -1,5 +1,6 @@
 import cv2, time, pygame, os
-
+import facial_recognition
+from datetime import datetime
 from twilio.rest import TwilioRestClient
 ACCOUNT_SID = "AC5613e6c128b742fdf0eb79568de94e1e"
 AUTH_TOKEN = "2a75e349e7bc974bdf2ef3b13455269f"
@@ -14,6 +15,7 @@ def main():
     screen.fill((255, 255, 255))
     running = True
     results = []
+    again = False
     while(running):
         activated = False
         events = pygame.event.get()
@@ -22,16 +24,17 @@ def main():
                 activated = True
             if event.type == pygame.QUIT:
                 running = False
-        again = False
         while(activated):
+            print datetime.now()
             time.sleep(5)
             webcam = cv2.VideoCapture()
             webcam.open(0)
             retval, image = webcam.retrieve()
             webcam.release()
-            cv2.imwrite("static/images/test{0}.png".format(count), image)
-            results.append(check(image))
-            if results[count] == False & ~again:
+            cv2.imwrite("static/images/test{0}.jpg".format(count), image)
+            results.append(facial_recognition.check(image))
+            print results[count]
+            if results[count] == False and not again:
                 client.messages.create(
                     to="9173286623",
                     from_="+13475274066",
@@ -39,12 +42,14 @@ def main():
                     ) 
                 again = True
             count += 1
-            events = pygame.event.get()
-            for event in events:
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_SPACE:
-                        activated = False
-                        running = False
+            print datetime.now()
+            #events = pygame.event.get()
+            #for event in events:
+                #if event.type == pygame.KEYDOWN:
+                    #if event.key == pygame.K_SPACE:
+                        #running = False
+                        #activated = False
+                    
             
 
 if __name__ == "__main__":
