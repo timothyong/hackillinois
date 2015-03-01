@@ -1,8 +1,9 @@
 import cv2, time, pygame, os
 import facial_recognition
+from datetime import datetime
 from twilio.rest import TwilioRestClient
 ACCOUNT_SID = "AC5613e6c128b742fdf0eb79568de94e1e"
-AUTH_TOKEN = "2a75e349e7bc974bdf2ef3b13455269f"
+AUTH_TOKEN = ""
 
 client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
 
@@ -24,6 +25,7 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
         while(activated):
+            print datetime.now()
             time.sleep(5)
             webcam = cv2.VideoCapture()
             webcam.open(0)
@@ -40,6 +42,7 @@ def main():
                     ) 
                 again = True
             count += 1
+            print datetime.now()
             events = pygame.event.get()
             for event in events:
                 if event.type == pygame.KEYDOWN:
