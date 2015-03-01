@@ -5,11 +5,6 @@ import numpy as np
 import numpy.linalg as la
 import math as mt
 
-# Get values from command line
-imagePath = sys.argv[1]
-cascPath = sys.argv[2]
-
-
 #Content of out eigens
 #	there would be five images of each person
 #	the collumns would be the frob norm of each type
@@ -30,30 +25,8 @@ indbuffervals = {'Abhishek':100,
 				 'Akshay':100,
 				 'Chris':50,
 				 'Tim':50}
+#hardcode values into ournorms above
 
-#hardcode values into ournorms here
-
-# Create the haar cascade
-faceCascade = cv2.CascadeClassifier(cascPath)
-
-# Read the image
-image = cv2.imread(imagePath)
-imnonmod = cv2.imread(imagePath)
-gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-
-# Detect faces in the image
-faces = faceCascade.detectMultiScale(
-    gray,
-    scaleFactor=1.25,
-    minNeighbors=5,
-    minSize=(40, 40)    
-)
-
-print "Found {0} faces!".format(len(faces))
-
-# Draw a rectangle around the faces
-for (x, y, w, h) in faces:
-    cv2.rectangle(image, (x, y), (x+w, y+h), (0, 255, 0), 2)
 
 def recognizeFace(faces):
 	retval = True
@@ -85,10 +58,46 @@ def checker(inmod):
 			print(name)
 	return retval
 
-if(len(faces)>0):
+# Get values from command line
+def check(image):
+	#imagePath = sys.argv[1]
+	#cascPath = sys.argv[2]
+	imagePath = image
+	cascPath = "haarcascade_frontalface_default.xml"
+
+
+	# Create the haar cascade
+	faceCascade = cv2.CascadeClassifier(cascPath)
+
+	# Read the image
+	image = cv2.imread(imagePath)
+	imnonmod = cv2.imread(imagePath)
+	gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+	# Detect faces in the image
+	faces = faceCascade.detectMultiScale(
+    	gray,
+    	scaleFactor=1.25,
+    	minNeighbors=5,
+    	minSize=(40, 40)    
+	)
+
+	print "Found {0} faces!".format(len(faces))
+
+	# Draw a rectangle around the faces
+	for (x, y, w, h) in faces:
+    	cv2.rectangle(image, (x, y), (x+w, y+h), (0, 255, 0), 2)
+
+    if(len(faces)>0):
 	what, number = recognizeFace(faces)
 	# return what to the arduino
+	if(what is False):
+		print("intruder detected")
 
 
-cv2.imshow("Faces found", image)
-cv2.waitKey(0)
+	cv2.imshow("Faces found", image)
+	#cv2.waitKey(0)
+
+
+
+
