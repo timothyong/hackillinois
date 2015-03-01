@@ -1,5 +1,6 @@
-import cv2, time, pygame, os
+import cv2, serial, pygame, os
 import facial_recognition
+from time import sleep
 from datetime import datetime
 from twilio.rest import TwilioRestClient
 ACCOUNT_SID = "AC5613e6c128b742fdf0eb79568de94e1e"
@@ -26,13 +27,23 @@ def main():
                 running = False
         while(activated):
             print datetime.now()
-            time.sleep(5)
+            sleep(5)
             webcam = cv2.VideoCapture()
             webcam.open(0)
             retval, image = webcam.retrieve()
             webcam.release()
-            cv2.imwrite("static/images/test{0}.jpg".format(count), image)
-            results.append(facial_recognition.check(image))
+            cv2.imwrite("test{0}.jpg".format(count), image)
+            
+            x = facial_recognition.check("test{0}.jpg".format(count))
+            '''
+            ser1 = serial.Serial('/dev/tty.usbserial-DA011JAU',9600)
+            ser2 = serial.Serial('/dev/tty.usbmodem1431',9600)
+            sleep(4.5)
+            if x==False:
+                ser1.write(str(int(x)))
+                ser2.write(str(int(x)))
+                '''
+            results.append(x)
             print results[count]
             if results[count] == False and not again:
                 client.messages.create(
