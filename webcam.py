@@ -35,14 +35,14 @@ def main():
             cv2.imwrite("test{0}.jpg".format(count), image)
             
             x = facial_recognition.check("test{0}.jpg".format(count))
-            '''
+
             ser1 = serial.Serial('/dev/tty.usbserial-DA011JAU',9600)
             ser2 = serial.Serial('/dev/tty.usbmodem1431',9600)
             sleep(4.5)
             if x==False:
                 ser1.write(str(int(x)))
                 ser2.write(str(int(x)))
-                '''
+
             results.append(x)
             print results[count]
             if results[count] == False and not again:
