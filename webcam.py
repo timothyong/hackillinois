@@ -14,6 +14,7 @@ def main():
     screen.fill((255, 255, 255))
     running = True
     results = []
+    again = False
     while(running):
         activated = False
         events = pygame.event.get()
@@ -22,7 +23,6 @@ def main():
                 activated = True
             if event.type == pygame.QUIT:
                 running = False
-        again = False
         while(activated):
             time.sleep(5)
             webcam = cv2.VideoCapture()
@@ -31,6 +31,7 @@ def main():
             webcam.release()
             cv2.imwrite("static/images/test{0}.png".format(count), image)
             results.append(facial_recognition.check(image))
+            print results[count]
             if results[count] == False & ~again:
                 client.messages.create(
                     to="9173286623",

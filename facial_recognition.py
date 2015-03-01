@@ -23,18 +23,18 @@ ournorms = {'Abhishek':[5916.56,6155.725,5835.83,6033.245,5922.402,6207.052,6028
 
 indbuffervals = {'Abhishek':100,
 				 'Akshay':100,
-				 'Chris':50,
-				 'Tim':50}
+				 'Chris':200,
+				 'Tim':150}
 #hardcode values into ournorms above
 
 
-def recognizeFace(faces):
+def recognizeFace(faces, image):
 	retval = True
 	if(len(faces)>10):
 		print("Fuck it too many faces shoot everyone")
 		return True, 100
 	for i in range(faces.shape[0]):
-		x, y, w, z = faces[i]
+		x, y, w, h = faces[i]
 		bufw = (400 - w)/2
 		bufh = (400 - h)/2
 		inmod = image[y-bufw:y+w+bufw,x-bufh:x+h+bufh]
@@ -89,14 +89,16 @@ def check(image):
 		cv2.rectangle(image, (x, y), (x+w, y+h), (0, 255, 0), 2)
 
 	if(len(faces)>0):
-		what, number = recognizeFace(faces)
+		what, number = recognizeFace(faces, image)
 	# return what to the arduino
 	if(what is False):
 		print("intruder detected")
+		return 0
 
 
 	cv2.imshow("Faces found", image)
 	#cv2.waitKey(0)
+	return 1
 
 
 
