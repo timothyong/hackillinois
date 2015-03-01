@@ -1,6 +1,6 @@
 import cv2
 import sys
-import matplotlib.pyplot as pt
+#import matplotlib.pyplot as pt
 import numpy as np
 import numpy.linalg as la
 import math as mt
@@ -70,8 +70,8 @@ def check(image):
 	faceCascade = cv2.CascadeClassifier(cascPath)
 
 	# Read the image
-	image = cv2.imread(imagePath)
-	imnonmod = cv2.imread(imagePath)
+	#image = cv2.imread(imagePath)
+	imnonmod = image
 	gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
 	# Detect faces in the image
@@ -86,10 +86,10 @@ def check(image):
 
 	# Draw a rectangle around the faces
 	for (x, y, w, h) in faces:
-    	cv2.rectangle(image, (x, y), (x+w, y+h), (0, 255, 0), 2)
+		cv2.rectangle(image, (x, y), (x+w, y+h), (0, 255, 0), 2)
 
-    if(len(faces)>0):
-	what, number = recognizeFace(faces)
+	if(len(faces)>0):
+		what, number = recognizeFace(faces)
 	# return what to the arduino
 	if(what is False):
 		print("intruder detected")
@@ -101,3 +101,5 @@ def check(image):
 
 
 
+if __name__ == '__main__':
+	check()

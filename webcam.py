@@ -1,5 +1,5 @@
 import cv2, time, pygame, os
-
+import facial_recognition
 from twilio.rest import TwilioRestClient
 ACCOUNT_SID = "AC5613e6c128b742fdf0eb79568de94e1e"
 AUTH_TOKEN = "2a75e349e7bc974bdf2ef3b13455269f"
@@ -30,7 +30,7 @@ def main():
             retval, image = webcam.retrieve()
             webcam.release()
             cv2.imwrite("static/images/test{0}.png".format(count), image)
-            results.append(check(image))
+            results.append(facial_recognition.check(image))
             if results[count] == False & ~again:
                 client.messages.create(
                     to="9173286623",
