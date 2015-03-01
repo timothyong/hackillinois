@@ -2,7 +2,7 @@ import cv2, time, pygame, os
 import facial_recognition
 from datetime import datetime
 from twilio.rest import TwilioRestClient
-ACCOUNT_SID = "AC5613e6c128b742fdf0eb79568de94e1e"
+ACCOUNT_SID = ""
 AUTH_TOKEN = ""
 
 client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
