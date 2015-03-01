@@ -1,6 +1,6 @@
 from flask import Flask
-from flask import session,request,render_template, url_for, redirect, Response
-import os, cv2
+from flask import session,request,render_template, url_for, redirect
+import os
 
 app = Flask(__name__)
 app.secret_key = "lavaryss"
@@ -11,9 +11,9 @@ def home():
 
 @app.route('/results')
 def results():
-    results = []
-    x = os.listdir('./static/images')
-    return render_template("results.html", x)
+    x = os.listdir('static/images')
+    print x
+    return render_template("results.html", x=x)
 
 if __name__ == "__main__":
     app.debug=True
