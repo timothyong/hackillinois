@@ -1,10 +1,9 @@
 from flask import Flask
 from flask import session,request,render_template, url_for, redirect, Response
-import os
-
+import os, cv2
 
 app = Flask(__name__)
-
+app.secret_key = "lavaryss"
 
 @app.route("/")
 def home():
@@ -12,6 +11,7 @@ def home():
 
 @app.route('/results')
 def results():
+    results = []
     x = os.listdir('./static/images')
     return render_template("results.html", x)
 
