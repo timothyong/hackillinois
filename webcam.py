@@ -3,8 +3,8 @@ import facial_recognition
 from time import sleep
 from datetime import datetime
 from twilio.rest import TwilioRestClient
-ACCOUNT_SID = "AC5613e6c128b742fdf0eb79568de94e1e"
-AUTH_TOKEN = "2a75e349e7bc974bdf2ef3b13455269f"
+ACCOUNT_SID = ""
+AUTH_TOKEN = ""
 
 client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
 
